@@ -1,0 +1,30 @@
+<launch>
+  <!-- GDB functionality -->
+  <arg name="debug" default="false" />
+  <arg unless="$(arg debug)" name="launch_prefix" value="" />
+  <arg     if="$(arg debug)" name="launch_prefix" value="gdb --ex run --args" />
+
+  <arg name="rviz" default="true" />
+  <arg name="reconfigure" default="true" />
+
+  <rosparam file="$(find kdlidar_ros)/config/kitti.yaml" command="load" />
+  
+  <node name="kdlidar_ros_pcl" pkg="kdlidar_ros"
+      type="kdlidar_ros_pcl" output="screen" required="true" >
+
+       <param name="license_file" type="string" value="$(find kdlidar_ros)/config/2021-09-30.kdlicense" />
+
+       <remap from="/sensor/points" to="/kitti/velo/pointcloud" />
+       <remap from="/sensor/gps" to="/kitti/oxts/gps/fix" />
+       <remap from="/sensor/imu" to="/kitti/oxts/imu_raw" />
+  </node>
+
+  <!-- RViz -->
+  <node if="$(arg rviz)"
+        name="rviz" pkg="rviz" type="rviz" launch-prefix="$(arg launch_prefix)"
+        args="-d $(find kdlidar_ros)/config/kdlidar_ros_pcl.rviz" required="true" />
+  
+  <!-- Dynamic Reconfigure-->
+  <node if="$(arg reconfigure)"
+        name="rqt_reconfigure" pkg="rqt_reconfigure" type="rqt_reconfigure" required="true" />
+</launch>
