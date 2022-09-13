@@ -25,39 +25,46 @@ This is the ROS implementation of Kudan LiDAR SLAM (KdLidar) library.
   rosdep update7 echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
   ```
 2. Clone the package and install
-  
-. (For customers) Extract kdlidar_ros.zip and source setup.bash
-1 unzip kdlidar_ros.zip
-2 source kdlidar_ros/install/setup.bash
-Map making mode
-. Launch kdlidar_ros_pcl node
-1 source /path/to/kdlidar_ros/install/setup.bash
-2 roslaunch kdlidar_ros kdlidar_ros_pcl_nissan_mapper.launch
-. Open a new terminal and rosbag play
-kdlidar_ros might skip frames so please add -r 0.5 to play a rosbag file with
+```source kdlidar_ros/install/setup.bash
+git clone https://github.com/KRudraksh/KUDAN-SLAM-Localisatioin
+```
+
+### Map making mode ###
+3. Launch kdlidar_ros_pcl node
+```source /path/to/kdlidar_ros/install/setup.bash
+roslaunch kdlidar_ros kdlidar_ros_pcl_nissan_mapper.launch
+```
+
+4. Open a new terminal and ```rosbag play``` kdlidar_ros might skip frames so please add ```-r 0.5``` to play a rosbag file with
 x0.5 speed
-rosbag play /path/to/kudan_input_filt_2020-09-09-15-26-12.bag -r
-0.5
-. Open another terminal and save map
-1 source /path/to/kdlidar_ros/install/setup.bash
-2 rosservice call /kdlidar_ros_pcl/save_map nissan.kdlm
-You can replace "nissan.kdmp" with any file name you want. The file will be saved at
-ROS_HOME which is by default ~/.ros
-Note that you need to source your catkin workspace in your terminal in order for the
-services to become available.
-Launch kdlidar_ros_pcl node
-KITTI dataset
-. Download a sample bag file
-You can download kitti_2011_10_03_drive_0027_synced.bag from here
-. Launch kdlidar_ros_pcl node
-roslaunch kdlidar_ros kdlidar_ros_pcl_kitti.launch
-. Open a new terminal and rosbag play
-rosbag play /path/to/kitti_2011_10_03_drive_0027_synced.bag -r
-0.5
-Save mapTo save the map with a simple command line command run one the commands
+```rosbag play /path/to/kudan_input_filt_2020-09-09-15-26-12.bag -r 0.5```
+
+5. Open another terminal and save map
+```source /path/to/kdlidar_ros/install/setup.bash
+rosservice call /kdlidar_ros_pcl/save_map nissan.kdlm
+```
+
+You can replace "nissan.kdmp" with any file name you want. The file will be saved at ROS_HOME which is by default ~/.ros
+Note that you need to source your catkin workspace in your terminal in order for the services to become available.
+
+### Launch kdlidar_ros_pcl node ###
+#### KITTI dataset ####
+1. Download a sample bag file
+You can download kitti_2011_10_03_drive_0027_synced.bag from [here](https://www.dropbox.com/sh/faojt9bohpgwfww/AAA_aAQnnvRO70OjFPs7Pgaza?dl=0)
+
+2. Launch kdlidar_ros_pcl node
+
+```roslaunch kdlidar_ros kdlidar_ros_pcl_kitti.launch```
+
+3. Open a new terminal and rosbag play
+
+```rosbag play /path/to/kitti_2011_10_03_drive_0027_synced.bag -r 0.5```
+
+### Save map ###
+To save the map with a simple command line command run one the commands
 (matching to your node running):
-rosservice call /kdlidar_ros_xxx/save_map path/to/map.kdlm
-You can replace "map.kdmp" with any file name you want. The file will be saved at
-ROS_HOME which is by default ~/.ros
-Note that you need to source your catkin workspace in your terminal in order for the
-services to become available.
+
+```rosservice call /kdlidar_ros_xxx/save_map path/to/map.kdlm```
+
+You can replace "map.kdmp" with any file name you want. The file will be saved at ROS_HOME which is by default ~/.ros
+Note that you need to source your catkin workspace in your terminal in order for the services to become available.
