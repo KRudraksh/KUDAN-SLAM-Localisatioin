@@ -25,9 +25,12 @@ This is the ROS implementation of Kudan LiDAR SLAM (KdLidar) library.
   rosdep update7 echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
   ```
 2. Clone the package and install
-```source kdlidar_ros/install/setup.bash
-git clone https://github.com/KRudraksh/KUDAN-SLAM-Localisatioin
-```
+
+```git clone https://github.com/KRudraksh/KUDAN-SLAM-Localisatioin```
+
+Download [this](https://drive.google.com/file/d/1CjpWBeU8Sxwz1KPr8AOd53iQxY7wIQz9/view?usp=sharing) file from Google drive and copy to ```/home/{deice-name}/KUDAN-SLAM-Localisatioin/install/lib/kdlidar_ros/```
+
+```source kdlidar_ros/install/setup.bash```
 
 ### Map making mode ###
 3. Launch kdlidar_ros_pcl node
@@ -37,6 +40,7 @@ roslaunch kdlidar_ros kdlidar_ros_pcl_nissan_mapper.launch
 
 4. Open a new terminal and ```rosbag play``` kdlidar_ros might skip frames so please add ```-r 0.5``` to play a rosbag file with
 x0.5 speed
+
 ```rosbag play /path/to/kudan_input_filt_2020-09-09-15-26-12.bag -r 0.5```
 
 5. Open another terminal and save map
